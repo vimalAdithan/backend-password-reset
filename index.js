@@ -110,7 +110,8 @@ app.post("/passwordlink", express.json(), async function (request, response) {
         from: "k.vimal1213@gmail.com",
         to: email.username,
         subject: "sending email for password reset",
-        text: `This link valid for 2 minitues https://wonderful-yeot-025b0d.netlify.app/forgotpassword/${name._id}/${token}`,
+        // text: `This link valid for 2 minitues https://wonderful-yeot-025b0d.netlify.app/forgotpassword/${name._id}/${token}`,
+        text: `This link valid for 2 minitues https://wonderful-yeot-025b0d.netlify.app/forgotpassword`,
       };
       sender.sendMail(composemail, function (error, info) {
         if (error) {
