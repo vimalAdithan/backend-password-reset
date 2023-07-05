@@ -8,8 +8,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const app = express();
-// const MONGO_URL = "mongodb://127.0.0.1";
-const MONGO_URL = process.env.MONGO_URL;
+const MONGO_URL = "mongodb://127.0.0.1";
+// const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT;
 const client = new MongoClient(MONGO_URL); // dial
 // Top level await
@@ -90,6 +90,7 @@ var sender = nodemailer.createTransport({
 
 app.post("/passwordlink", express.json(), async function (request, response) {
   const email = request.body;
+  console.log(email);
   try {
     const name = await client
       .db("loginpage")
@@ -110,7 +111,7 @@ app.post("/passwordlink", express.json(), async function (request, response) {
         from: "k.vimal1213@gmail.com",
         to: email.username,
         subject: "sending email for password reset",
-        text: `This link valid for 2 minitues https://wonderful-yeot-025b0d.netlify.app/forgotpassword/${name._id}/${token}`,
+        text: `This link valid for 2 minitues ${email.link}/forgotpassword/${name._id}/${token}`,
       };
       sender.sendMail(composemail, function (error, info) {
         if (error) {
